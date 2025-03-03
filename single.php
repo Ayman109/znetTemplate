@@ -54,8 +54,10 @@
             <div class="prev-post"> <?php previous_post_link(); ?> </div>
             <div class="next-post"> <?php next_post_link(); ?> </div>
         </nav>
-        
+       
     <?php endwhile; endif; ?>
+
+    <?php comments_template();?>
 </main>
 
 <?php get_footer(); ?>

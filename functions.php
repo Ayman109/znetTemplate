@@ -45,6 +45,20 @@ function my_custom_menus() {
 }
 
 
+function register_custom_logo_2($wp_customize) {
+    $wp_customize->add_setting('custom_logo_2', array(
+        'default'   => '',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'custom_logo_2', array(
+        'label'    => __('Secondary Logo', 'textdomain'),
+        'section'  => 'title_tagline',
+        'settings' => 'custom_logo_2',
+    )));
+}
+add_action('customize_register', 'register_custom_logo_2');
+
 
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
     function start_lvl(&$output, $depth = 0, $args = null) {
@@ -167,4 +181,105 @@ function social_share_buttons() {
     echo '<a href="' . $whatsapp_url . '" target="_blank" class="whatsapp">Partager sur WhatsApp</a>';
     echo '</div>';
 }
+
+
+
+
+
+function custom_comment_template($comment, $args, $depth) {
+    ?>
+    <div <?php comment_class('custom-comment'); ?> id="comment-<?php comment_ID(); ?>">
+        <article class="comment-body">
+            <div class="comment-avatar">
+                <?php echo get_avatar($comment, 60); ?>
+                <div class="comment-author">
+                    <b><?php comment_author_link(); ?></b>
+                    <span class="comment-date"><?php printf(__('on %1$s', 'textdomain'), get_comment_date()); ?></span>
+                </div>
+            </div>
+            <div class="comment-details">
+    
+                <div class="comment-text">
+                    <?php comment_text(); ?>
+                </div>
+                <div class="comment-reply">
+                    <?php comment_reply_link(array_merge($args, array(
+                        'depth'     => $depth,
+                        'max_depth' => $args['max_depth'],
+                        'reply_text' => __('Reply', 'textdomain')
+                    ))); ?>
+                </div>
+            </div>
+        </article>
+                </div>
+    <?php
+}
+
+
+
+
+// services panel 
+
+function custom_services_post_type() {
+    register_post_type('services', array(
+        'labels'      => array(
+            'name'          => __('Services'),
+            'singular_name' => __('Service')
+        ),
+        'public'      => true,
+        'has_archive' => true,
+        'supports'    => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'taxonomies'  => array('service_category'),
+        'menu_icon'   => 'dashicons-hammer',
+        'template'    => array(
+            array('core/paragraph', array(
+                'placeholder' => 'Ajoutez la description du service ici...'
+            )),
+        )
+    ));
+}
+add_action('init', 'custom_services_post_type');
+
+// Enregistrer la taxonomie "Catégories de Services"
+function create_service_category_taxonomy() {
+    register_taxonomy('service_category', 'services', array(
+        'labels' => array(
+            'name'          => __('Catégories de Services'),
+            'singular_name' => __('Catégorie de Service'),
+        ),
+        'hierarchical'      => true,
+        'show_admin_column' => true,
+        'show_ui'           => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'service-category'),
+    ));
+}
+add_action('init', 'create_service_category_taxonomy');
+
+
+// Ajouter un template personnalisé pour les services
+function custom_services_template($template) {
+    if (is_singular('services')) {
+        $new_template = locate_template(array('single-service.php'));
+        if (!empty($new_template)) {
+            return $new_template;
+        }
+    }
+    return $template;
+}
+add_filter('single_template', 'custom_services_template');
+
+
+function register_service_sidebar() {
+    register_sidebar(array(
+        'name'          => __('Service Sidebar', 'textdomain'),
+        'id'            => 'service-sidebar',
+        'description'   => __('Sidebar affichée sur les pages de services', 'textdomain'),
+        'before_widget' => '<div class="widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ));
+}
+add_action('widgets_init', 'register_service_sidebar');
 ?>

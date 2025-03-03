@@ -15,15 +15,17 @@
     window.addEventListener("scroll", function () {
         var header = document.querySelector("header");
         var toTop  = document.querySelector(".toTop");
+        var logo = this.document.querySelector(".logo img")
 
 
         if (window.scrollY > 50) {
             header.classList.add("site-header-scroll");
-            //toTop.classList.add("toTopActive")
+            document.body.classList.add("scrolled");
+
 
         } else{
             header.classList.remove("site-header-scroll");
-            //toTop.classList.remove("toTopActive") ; 
+            document.body.classList.remove("scrolled");
         }
  
         

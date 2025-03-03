@@ -71,7 +71,6 @@
     </div>
 
 
-
     <div class="footer-row">
         <h4>Contact</h4>
         <strong>EMAIl</strong>
@@ -81,16 +80,12 @@
     </div>
 
 
-
-
     <div class="footer-row">
-        <h4>NewsLetter</h4>
-        <p>Join our subscribers list to get the instant latest news and special offers.</p>
-    </div>
+    <iframe loading="lazy" src="https://maps.google.com/maps?q=RQ56%2BHH%20Sakiet%20Ezzit&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near" title="RQ56+HH Sakiet Ezzit" aria-label="RQ56+HH Sakiet Ezzit"></iframe>
     </div>
 
 </div>
-
+</div>
 
 <div class="sous-footer">
                     <p>Copyright 2024 Dilabs. All Rights Reserved by Validthemes</p>
