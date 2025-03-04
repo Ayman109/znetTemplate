@@ -154,7 +154,7 @@ add_action('customize_register', 'my_custom_customize_register');
 function custom_login_logo() { ?>
     <style type="text/css">
         #login h1 a {
-            background-image: url('http://localhost/znet/wp-content/uploads/2025/02/logo.png'); 
+            background-image: url('http://localhost/znet/wp-content/uploads/2025/02/logo_Plan-de-travail-1.png'); 
             background-size: contain;
             width: 320px;
             height: 84px;
